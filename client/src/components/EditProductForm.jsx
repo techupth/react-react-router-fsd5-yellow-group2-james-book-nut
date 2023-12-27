@@ -1,4 +1,33 @@
-function EditProductForm() {
+import axios from "axios";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+function EditProductForm({ data }) {
+  const [productData, setProductData] = useState(data);
+  const navigate = useNavigate();
+  function handleChange(event) {
+    const { name: field, value } = event.target;
+    setProductData((prevProductData) => {
+      return {
+        ...prevProductData,
+        [field]: value,
+      };
+    });
+  }
+
+  async function submitChange(event) {
+    event.preventDefault();
+    try {
+      const res = await axios.put(
+        `http://localhost:4001/products/${productData.id}`,
+        productData
+      );
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
     <form className="product-form">
       <h1>Edit Product Form</h1>
@@ -10,7 +39,8 @@ function EditProductForm() {
             name="name"
             type="text"
             placeholder="Enter name here"
-            onChange={() => {}}
+            value={productData.name}
+            onChange={handleChange}
           />
         </label>
       </div>
@@ -22,7 +52,8 @@ function EditProductForm() {
             name="image"
             type="text"
             placeholder="Enter image url here"
-            onChange={() => {}}
+            value={productData.image}
+            onChange={handleChange}
           />
         </label>
       </div>
@@ -34,7 +65,8 @@ function EditProductForm() {
             name="price"
             type="number"
             placeholder="Enter price here"
-            onChange={() => {}}
+            value={productData.price}
+            onChange={handleChange}
           />
         </label>
       </div>
@@ -46,14 +78,17 @@ function EditProductForm() {
             name="description"
             type="text"
             placeholder="Enter description here"
-            onChange={() => {}}
+            value={productData.description}
+            onChange={handleChange}
             rows={4}
             cols={30}
           />
         </label>
       </div>
       <div className="form-actions">
-        <button type="submit">Update</button>
+        <button type="submit" onClick={submitChange}>
+          Update
+        </button>
       </div>
     </form>
   );
