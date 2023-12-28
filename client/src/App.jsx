@@ -13,8 +13,14 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/product/create" element={<CreateProductPage />} />
-          <Route path="" />
-          <Route path="" />
+          <Route
+            path="/product/view/:productId"
+            element={<ViewProductPage />}
+          />
+          <Route
+            path="/product/edit/:productId"
+            element={<EditProductPage />}
+          />
         </Routes>
       </Router>
     </div>

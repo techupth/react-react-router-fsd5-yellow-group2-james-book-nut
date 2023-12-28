@@ -65,9 +65,27 @@ function HomePage() {
                 <h1>Product name: {product.name} </h1>
                 <h2>Product price: {product.price}</h2>
                 <p>Product description: {product.description} </p>
+
                 <div className="product-actions">
-                  <button className="view-button">View</button>
-                  <button className="edit-button">Edit</button>
+                  {/* ปุ่ม View */}
+                  <button
+                    className="view-button"
+                    onClick={() => {
+                      navigate(`product/view/&{product.id}`);
+                    }}
+                  >
+                    View
+                  </button>
+
+                  {/* ปุ่ม Edit */}
+                  <button
+                    className="edit-button"
+                    onClick={() => {
+                      navigate(`product/edit/&{product.id}`);
+                    }}
+                  >
+                    Edit
+                  </button>
                 </div>
               </div>
 
